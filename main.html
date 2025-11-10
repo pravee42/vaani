@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vaani Conference - MVIT - 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <style>
+      /* Custom CSS for hover animations and responsiveness */
+      .nav-link-custom {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .nav-link-custom::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: white;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-out;
+      }
+
+      .nav-link-custom:hover::after {
+        transform: translateX(0);
+      }
+
+      .button-custom {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .button-custom::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transition: width 0.4s ease-out, height 0.4s ease-out, top 0.4s ease-out,
+          left 0.4s ease-out;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+      }
+
+      .button-custom:hover::before {
+        width: 200%;
+        height: 200%;
+        top: 50%;
+        left: 50%;
+      }
+
+      /* Mobile responsiveness adjustments */
+      @media (max-width: 767px) {
+        .flex-row.md\:flex-nowrap {
+          flex-direction: column;
+        }
+        .md\:w-full {
+          width: 100%;
+        }
+      }
+
+      .card-custom {
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        background-color: white;
+      }
+
+      .card-custom:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Timeline specific styles */
+      .timeline-container {
+        position: relative;
+        padding-left: 50px; /* Space for the line and circles */
+      }
+
+      .timeline-container::before {
+        content: "";
+        position: absolute;
+        left: 20px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        border-radius: 100px;
+        background-color: #004aad; /* Blue line */
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 30px;
+        padding: 15px 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+
+      .timeline-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -4.8%; /* Position the circle on the line */
+        top: 25px;
+        width: 20px;
+        height: 20px;
+        background-color: #ff914d; /* Orange circle */
+        border: 3px solid #004aad; /* Blue border */
+        border-radius: 50%;
+        z-index: 1;
+      }
+
+      .timeline-date {
+        font-weight: bold;
+        color: #ff914d; /* Orange color for date */
+        margin-bottom: 5px;
+        font-size: 1.1em;
+      }
+
+      .timeline-content {
+        color: #333;
+      }
+
+      /* Responsive adjustments for timeline */
+      @media (max-width: 767px) {
+        .timeline-container {
+          padding-left: 30px;
+        }
+        .timeline-container::before {
+          left: 10px;
+        }
+        .timeline-item::before {
+          left: -20px;
+          top: 20px;
+          width: 16px;
+          height: 16px;
+        }
+        .timeline-date {
+          font-size: 1em;
+        }
+      }
+
+      /* Resource Person Card specific styles */
+      .resource-person-card {
+        background-color: white;
+        border-radius: 24px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+      }
+      .resource-person-card:last-child {
+        margin-right: 0;
+      }
+      @media (max-width: 768px) {
+        .resource-person-card {
+          width: 100%;
+        }
+      }
+
+      .resource-person-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .resource-person-card .card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: fill;
+        background-color: #f5f5f5;
+      }
+
+      .resource-person-card .card-content {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .resource-person-card .card-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .resource-person-card h3 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      .resource-person-card .verified-badge {
+        color: #10b981;
+        font-size: 1.2rem;
+      }
+
+      .resource-person-card .designation {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 16px;
+        line-height: 1.5;
+      }
+
+      .resource-person-card .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 16px;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .resource-person-card .card-stats {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .resource-person-card .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .resource-person-card .stat-icon {
+        font-size: 1rem;
+        color: #999;
+      }
+
+      .resource-person-card .follow-button {
+        background-color: #f5f5f5;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        color: #333;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: background-color 0.2s ease;
+        font-weight: 500;
+      }
+
+      .resource-person-card .follow-button:hover {
+        background-color: #e5e5e5;
+      }
+
+      .resource-person-card .follow-button i {
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 768px) {
+        .resource-person-card .card-image {
+          height: 180px;
+        }
+        .resource-person-card .card-content {
+          padding: 16px;
+        }
+        .resource-person-card h3 {
+          font-size: 1.1rem;
+        }
+        .resource-person-card .designation {
+          font-size: 0.85rem;
+        }
+      }
+
+      /* Organizing Committee Styles */
+      .committee-section {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+        padding: 60px 20px;
+      }
+
+      .committee-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #004aad;
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .committee-title::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, #004aad, #ff914d);
+        border-radius: 2px;
+      }
+
+      .committee-level {
+        margin-bottom: 40px;
+      }
+
+      .level-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #004aad;
+        text-align: center;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+        padding: 10px 0;
+      }
+
+      .level-title::before,
+      .level-title::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 40px;
+        height: 2px;
+        background: #ff914d;
+      }
+
+      .level-title::before {
+        left: 20%;
+      }
+
+      .level-title::after {
+        right: 20%;
+      }
+
+      .committee-cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .committee-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        flex: 1;
+        min-width: 280px;
+        max-width: 400px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .committee-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #004aad, #ff914d);
+      }
+
+      .committee-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .committee-card.chief-patron {
+        border-top: 5px solid #ff914d;
+      }
+
+      .committee-card.patron {
+        border-top: 5px solid #004aad;
+      }
+
+      .committee-card.chair {
+        border-top: 5px solid #10b981;
+      }
+
+      .committee-card.convenor {
+        border-top: 5px solid #8b5cf6;
+      }
+
+      .committee-card.co-convenor {
+        border-top: 5px solid #ec4899;
+      }
+
+      .committee-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #004aad;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      .committee-role {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #ff914d;
+        text-align: center;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .committee-affiliation {
+        font-size: 0.95rem;
+        color: #666;
+        text-align: center;
+        line-height: 1.6;
+        margin-top: 10px;
+      }
+
+      .committee-icon {
+        font-size: 3rem;
+        color: #004aad;
+        text-align: center;
+        margin-bottom: 15px;
+        opacity: 0.8;
+      }
+
+      @media (max-width: 768px) {
+        .committee-title {
+          font-size: 1.8rem;
+        }
+
+        .level-title {
+          font-size: 1.2rem;
+        }
+
+        .level-title::before,
+        .level-title::after {
+          width: 20px;
+        }
+
+        .committee-card {
+          min-width: 100%;
+          padding: 25px;
+        }
+
+        .committee-name {
+          font-size: 1.2rem;
+        }
+
+        .committee-icon {
+          font-size: 2.5rem;
+        }
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="w-full">
+      <div class="flex flex-row justify-between items-center p-2 md:p-3">
+        <img
+          src="https://mednext2025.vercel.app/AICTE_Logo.png"
+          alt="Logo"
+          class="w-10 h-10 md:w-16 md:h-16 lg:w-20 lg:h-20"
+        />
+        <h1
+          class="text-lg md:text-2xl lg:text-4xl xl:text-6xl font-bold text-[#004aad] text-center px-2"
+        >
+          Vaani Conference - 2025
+        </h1>
+        <img
+          src="mvit.png"
+          alt="Logo"
+          class="w-10 h-10 md:w-16 md:h-16 lg:w-20 lg:h-20"
+        />
+        <!-- <div class="mt-5" id="google_translate_element"></div> -->
+
+      </div>
+      <div class="relative">
+        <button
+          id="hamburger-btn"
+          class="md:hidden bg-[#004aad] text-white p-3 w-full flex items-center justify-center gap-2"
+        >
+          <i class="bi bi-list text-2xl"></i>
+          <span class="font-semibold">Menu</span>
+        </button>
+        <nav
+          id="mobile-nav"
+          class="hidden md:flex flex-col md:flex-row gap-2 md:gap-3 items-stretch md:items-center md:flex-wrap justify-center p-3 md:p-4 bg-[#004aad]"
+        >
+          <a
+            href="#home"
+            class="text-white font-semibold hover:bg-white p-2 md:p-3 rounded-xl hover:text-[#004aad] transition-colors text-sm md:text-base nav-link-custom"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="text-white font-semibold hover:bg-white p-2 md:p-3 rounded-xl hover:text-[#004aad] transition-colors text-sm md:text-base nav-link-custom"
+            >About</a
+          >
+          <a
+            href="#tracks"
+            class="text-white font-semibold hover:bg-white p-2 md:p-3 rounded-xl hover:text-[#004aad] transition-colors text-sm md:text-base nav-link-custom"
+            >Tracks</a
+          >
+          <a
+            href="#instructions"
+            class="text-white font-semibold hover:bg-white p-2 md:p-3 rounded-xl hover:text-[#004aad] transition-colors text-sm md:text-base nav-link-custom"
+            >Instructions</a
+          >
+          <a
+            href="#speakers"
+            class="text-white font-semibold hover:bg-white p-2 md:p-3 rounded-xl hover:text-[#004aad] transition-colors text-sm md:text-base nav-link-custom"
+            >Speakers</a
+          >
+          <a
+            href="#committee"
+            class="text-white font-semibold hover:bg-white p-2 md:p-3 rounded-xl hover:text-[#004aad] transition-colors text-sm md:text-base nav-link-custom"
+            >Committee</a
+          >
+          <a
+            href="#register-now"
+            class="text-white font-semibold hover:bg-white p-2 md:p-3 rounded-xl hover:text-[#004aad] transition-colors text-sm md:text-base nav-link-custom"
+            >Registration</a
+          >
+        </nav>
+      </div>
+      <div
+        class="flex flex-col items-center justify-center relative p-4 md:p-6 lg:p-8 rounded-xl m-2 md:m-4 lg:m-5"
+        style="
+          background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/4f/Mvitimage.jpg');
+          background-size: cover;
+          background-position: center;
+        "
+      >
+        <div
+          class="absolute inset-0 bg-black rounded-xl"
+          style="opacity: 0.7"
+        ></div>
+        <div
+          class="relative z-10 flex flex-col items-center justify-center p-2 text-center"
+        >
+          <h1
+            class="text-2xl md:text-4xl lg:text-2xl xl:text-6xl font-bold text-white mb-2 md:mb-4"
+          >
+            Vaani 2025 - MVIT
+          </h1>
+          <p
+            class="text-white text-sm md:text-lg lg:text-xl xl:text-2xl px-2 mb-2 md:mb-4"
+          >
+            Shaping the future of Younths with AI IoT
+          </p>
+          <p
+            class="text-white text-sm md:text-lg lg:text-xl xl:text-2xl flex flex-row gap-2 items-center mb-4 md:mb-6"
+          >
+            <span
+              class="bi bi-calendar-date text-base md:text-xl lg:text-2xl"
+            ></span>
+            12th - 14th November 2025
+          </p>
+          <div
+            class="mt-4 md:mt-6 lg:mt-8 flex flex-row gap-3 md:gap-5 lg:gap-8 flex-wrap justify-center"
+          >
+            <a href="#register-now"
+              class="bg-[#ff914d] text-sm md:text-base lg:text-xl text-white px-3 py-1.5 md:px-4 md:py-2 rounded-xl cursor-pointer hover:bg-white hover:text-[#ff914d] transition-colors button-custom"
+            >
+              Register Now
+        </a>
+            <a href="inv.jpeg" target="_blank"
+              class="bg-[#ff914d] text-sm md:text-base lg:text-xl text-white px-3 py-1.5 md:px-4 md:py-2 rounded-xl cursor-pointer hover:bg-white hover:text-[#ff914d] transition-colors button-custom"
+            >
+              Invitation
+      </a>
+            <!-- <button
+              class="bg-[#ff914d] text-sm md:text-base lg:text-xl text-white px-3 py-1.5 md:px-4 md:py-2 rounded-xl cursor-pointer hover:bg-white hover:text-[#ff914d] transition-colors button-custom"
+            >
+              Proceedings
+            </button> -->
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-4 md:mt-6 lg:mt-8 flex flex-col items-center justify-center gap-3 md:gap-5 lg:gap-8"
+      >
+        <h2 id="about"
+          class="text-2xl md:text-4xl lg:text-5xl xl:text-4xl font-bold text-[#004aad] text-center"
+        >
+          About the Conference
+        </h2>
+        <div
+          class="mt-4 md:mt-6 lg:mt-8 flex flex-row flex-wrap md:flex-nowrap items-start justify-center gap-3 md:gap-5 lg:gap-8 p-3"
+        >
+          <div
+            class="flex flex-col items-start justify-start w-full shadow-xl p-4 gap-3 lg:gap-4 h-full"
+          >
+            <h2
+              class="text-md md:text-xl lg:text-2xl xl:text-2xl font-bold text-[#004aad] text-center"
+            >
+              About the Conference
+            </h2>
+            <p class="text-sm md:text-sm lg:text-base xl:text-md text-justify">
+              The All India Council for Technical Education (AICTE) demonstrates
+              its commitment to enhancing technical education quality through
+              the implementation of various Government of India initiatives.
+              Among these, the AICTE-Vibrant Advocacy for Advancement and
+              Nurturing of Indian Languages (VAANI – 2025-26) scheme stands out
+              for its focus on promoting regional languages in educational
+              contexts. AICTE-VAANI aims to strengthen the teaching-learning
+              process by encouraging faculty members and students to engage with
+              technical concepts in their native languages. This initiative
+              facilitates the development of comprehensive knowledge
+              repositories in local languages, making cutting-edge technical
+              information more accessible across diverse linguistic communities.
+              By supporting the creation of technical content that incorporates
+              recent innovations and developments in regional languages, VAANI
+              helps bridge language barriers in technical education.
+              Furthermore, the scheme encourages research publication in Indian
+              languages, fostering stronger connections between educational
+              institutions and industry partners through improved communication
+              channels. Through VAANI, AICTE is building a more inclusive
+              technical education ecosystem that values linguistic diversity
+              while advancing India's technological capabilities.
+            </p>
+          </div>
+          <div
+            class="flex flex-col items-start justify-start w-full shadow-xl p-4 gap-3 lg:gap-4"
+          >
+            <h2
+              class="text-md md:text-xl lg:text-2xl xl:text-4xl font-bold text-[#004aad] text-center"
+            >
+              About MVIT
+            </h2>
+            <p class="text-sm md:text-sm lg:text-base xl:text-md text-justify">
+              Manakula Vinayagar Institute of Technology (MIT) is an Autonomous
+              Institution affiliated to Pondicherry University, established in
+              2008 by Sri Manakula Vinayaga Educational Trust. It is a premier
+              self-financing technical institution committed to provide quality
+              education and foster technological excellence. The institution is
+              approved by AICTE, accredited by NBA and NAAC with ‘A’ Grade and
+              located in Kalitheerthalkuppam, Madagadipet on the
+              Pondicherry-Villupuram Highway. With highly qualified and
+              experienced faculty, MIT emphasizes hands-on learning thereby
+              ensuring that students gain in-depth knowledge and practical
+              experience across various engineering disciplines. The
+              industry-aligned curriculum is continuously updated to match the
+              current trend which enhances the career opportunities of the
+              students. The well-equipped central library spans 10,272 sq. ft.
+              with extensive resources and the Centres of Excellence have been
+              established in collaboration with industry leaders such as Google,
+              IBM, Texas Instruments, Autodesk, Eplan, CISCO, Microsoft etc., to
+              keep the students abreast of the technological advancements. The
+              institution has signed MoUs with 50 industries/Institutions,
+              providing experiential learning through internships, live
+              projects, and industrial visits. Furthermore, NEP 2020 advocates
+              for the promotion of regional languages in education, recognizing
+              that instruction in one's mother tongue can enhance understanding
+              and cognitive development. The policy encourages higher education
+              institutions to offer courses in local languages and promotes the
+              use of regional languages in Engineering and Technology Our
+              Institution has a practice of hosting various events related to
+              Indian knowledge system and innovative technology interpretation
+              in Tamil language. We conducted multiple PDP programs for faculty
+              members and students related to technology perspective in regional
+              Language Tamil.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-4 md:mt-6 lg:mt-16 flex flex-col items-center justify-center gap-3 md:gap-5 lg:gap-8 bg-gray-100 p-5"
+      >
+        <h2 id="tracks"
+          class="text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-[#004aad] text-center"
+        >
+          Conference Themes / Thrust Areas
+        </h2>
+        <div
+          class="mt-4 md:mt-6 lg:mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8 p-3 w-full max-w-6xl"
+        >
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i class="bi bi-cpu-fill text-5xl text-[#ff914d] mb-4"></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Artificial Intelligence in Internet of Things (AIoT)
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i
+              class="bi bi-database-fill-gear text-5xl text-[#ff914d] mb-4"
+            ></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Data Science, Big Data & Analytics
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i class="bi bi-hdd-network-fill text-5xl text-[#ff914d] mb-4"></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Internet of Things Applications in Emerging Domains
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i
+              class="bi bi-chat-left-text-fill text-5xl text-[#ff914d] mb-4"
+            ></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Natural Language Processing (NLP) & Speech Technologies
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i class="bi bi-camera-fill text-5xl text-[#ff914d] mb-4"></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Computer Vision & Image Processing
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i class="bi bi-shield-lock-fill text-5xl text-[#ff914d] mb-4"></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Artificial Intelligence for Cybersecurity & Blockchain Technology
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i class="bi bi-heart-pulse-fill text-5xl text-[#ff914d] mb-4"></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Artificial Intelligence in Healthcare & Bioinformatics
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i class="bi bi-graph-up-arrow text-5xl text-[#ff914d] mb-4"></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Future Trends & Emerging Technologies in Internet of Things
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i class="bi bi-brush-fill text-5xl text-[#ff914d] mb-4"></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Generative AI and Its Applications
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i class="bi bi-tree-fill text-5xl text-[#ff914d] mb-4"></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Artificial Intelligence in Smart Environment & Sustainability
+            </h3>
+          </div>
+          <div
+            class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center"
+          >
+            <i class="bi bi-briefcase-fill text-5xl text-[#ff914d] mb-4"></i>
+            <h3 class="text-lg font-bold text-[#004aad] mb-2">
+              Artificial Intelligence in Business Intelligence & Automation
+            </h3>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-4 md:mt-6 lg:mt-8 flex flex-col items-center justify-center gap-3 md:gap-5 p-5"
+      >
+        <div
+          class="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-lg card-custom text-center w-full max-w-4xl"
+        >
+          <h2 id="instructions"
+            class="text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-[#004aad] text-center mb-4"
+          >
+            Paper Submission Guidelines
+          </h2>
+          <div class="text-sm md:text-base lg:text-md xl:text-lg text-left p-3">
+            <ul class="list-disc list-inside space-y-2">
+              <li>
+                One-page Abstracts (Both in Tamil & English) are invited from
+                the participants.
+              </li>
+              <li>
+                Interested Students/ Research Scholars may also present their
+                oral presentation/ Thesis work (Either in Tamil or English) in
+                the scheduled slots on each day of the conference.
+              </li>
+              <li>
+                Participation Certificates would be given for all registered
+                participants and accepted abstracts, acknowledged through google
+                form both in English & Tamil will be considered for publication
+                in Conference proceedings with ISBN Number.
+              </li>
+            </ul>
+            <p class="mt-4">
+              <strong>Contact Email ID:</strong> mitcvaani2025@mvit.edu.in<br />
+              <strong>Contact Mobile No:</strong> 9976167499/ 7010813712
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-4 md:mt-6 lg:mt-8 flex flex-col items-center justify-center gap-3 md:gap-5 p-5 bg-gray-100"
+      >
+        <div
+          class="flex flex-col items-center justify-center p-6 text-center w-full max-w-4xl"
+        >
+          <h2
+            class="text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-[#004aad] text-center mb-4"
+          >
+            Important Dates
+          </h2>
+          <div class="timeline-container text-left p-3 w-full">
+            <div class="timeline-item">
+              <div class="timeline-date">12th September, 2025</div>
+              <div class="timeline-content">
+                Last Date for Registration & Submission of Abstract
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">10th October, 2025</div>
+              <div class="timeline-content">
+                Last Date for Submission of Full Paper
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-date">19th October, 2025</div>
+              <div class="timeline-content">
+                Last Date for Submission of Camera Ready Paper
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="speakers"
+        class="mt-4 md:mt-6 lg:mt-8 flex flex-col items-center justify-center gap-3 md:gap-5 p-5"
+      >
+        <h2
+          class="text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-[#004aad] text-center"
+        >
+          Resource Persons
+        </h2>
+        <div
+          id="resource-persons-grid"
+          class="flex flex-row flex-wrap gap-4 md:gap-6 lg:gap-8 p-3 w-full max-w-6xl items-center justify-center"
+        ></div>
+      </div>
+      <div id="committee" class="committee-section mt-4 md:mt-6 lg:mt-8">
+        <h2 class="committee-title">Organizing Committee</h2>
+
+        <!-- Chief Patrons -->
+        <div class="committee-level">
+          <h3 class="level-title">Chief Patrons</h3>
+          <div class="committee-cards">
+            <div class="committee-card chief-patron">
+              <div class="committee-icon">
+                <i class="bi bi-award-fill"></i>
+              </div>
+              <div class="committee-name">Shri. M. Dhanasekaran</div>
+              <div class="committee-role">Chairman and Managing Director</div>
+              <div class="committee-affiliation">
+                Sri Manakula Vinayagar Educational Trust, Puducherry
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Patrons -->
+        <div class="committee-level">
+          <h3 class="level-title">Patrons</h3>
+          <div class="committee-cards">
+            <div class="committee-card patron">
+              <div class="committee-icon">
+                <i class="bi bi-person-badge-fill"></i>
+              </div>
+              <div class="committee-name">Dr. S. Malarkkan</div>
+              <div class="committee-role">Principal</div>
+              <div class="committee-affiliation">
+                Manakula Vinayagar Institute of Technology, Puducherry
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Convenor -->
+        <div class="committee-level">
+          <h3 class="level-title">Convenor</h3>
+          <div class="committee-cards">
+            <div class="committee-card convenor">
+              <div class="committee-icon">
+                <i class="bi bi-briefcase-fill"></i>
+              </div>
+              <div class="committee-name">Dr. N. Palanivel</div>
+              <div class="committee-role">Professor and Head</div>
+              <div class="committee-affiliation">
+                Department of CSE (IoT and Cyber Security including Block chain
+                Technology),<br />
+                Manakula Vinayagar Institute of Technology, Puducherry
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Co-Convenor -->
+        <div class="committee-level">
+          <h3 class="level-title">Co-Convenor</h3>
+          <div class="committee-cards">
+            <div class="committee-card co-convenor">
+              <div class="committee-icon">
+                <i class="bi bi-people-fill"></i>
+              </div>
+              <div class="committee-name">Mr. R. Raj Bharath</div>
+              <div class="committee-role">Head of the Department</div>
+              <div class="committee-affiliation">
+                Department of Artificial Intelligence and Machine Learning,<br />
+                Manakula Vinayagar Institute of Technology, Puducherry
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="register-now"
+        class="mt-4 md:mt-6 lg:mt-8 flex flex-col items-center justify-center gap-3 md:gap-5 p-5"
+      >
+        <h2
+          class="text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-[#004aad] text-center"
+        >
+          Registration
+        </h2>
+        <div
+          class="flex flex-row flex-wrap gap-4 md:gap-6 lg:gap-8 p-3 w-full max-w-6xl items-center justify-center"
+        >
+    
+        <!-- Info Cards Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            
+            <!-- No Registration Fee Card -->
+            <div class="group relative">
+                <div class="relative bg-gradient-to-br from-emerald-50 to-teal-50 rounded-[2rem] p-8  transform transition duration-300 group-hover:scale-105">
+                    <div class="flex items-center justify-center mb-3">
+                        <div class="bg-emerald-500 p-3 rounded-full ">
+                            <i class="bi bi-cash-coin text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-emerald-800 text-center leading-tight">
+                        No Registration Fee
+                    </h3>
+                </div>
+            </div>
+
+            <!-- Limited Participants Card -->
+            <div class="group relative">
+                <div class="relative bg-gradient-to-br from-blue-50 to-indigo-50 rounded-[2rem] p-8  transform transition duration-300 group-hover:scale-105">
+                    <div class="flex items-center justify-center mb-3">
+                        <div class="bg-blue-500 p-3 rounded-full ">
+                            <i class="bi bi-people-fill text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-800 text-center leading-tight">
+                        Limited to 50<br>Participants
+                    </h3>
+                </div>
+            </div>
+
+            <!-- Last Date Card -->
+            <div class="group relative">
+                <div class="relative bg-gradient-to-br from-rose-50 to-pink-50 rounded-[2rem] p-8 shadow-lg transform transition duration-300 group-hover:scale-105">
+                    <div class="flex items-center justify-center mb-3">
+                        <div class="bg-rose-600 p-3 rounded-full shadow-lg">
+                            <i class="bi bi-calendar-event text-white text-3xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-rose-800 text-center leading-tight">
+                        Last Date for Paper<br>Submission:<br>
+                        <span class="text-xl">19th October, 2025</span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+            <!-- Registration Form Button -->
+            <a href="https://forms.gle/SVhjAR8moXvPzHz6A" target="_blank" class="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-full px-8 py-5 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                <div class="relative flex items-center justify-center gap-3">
+                    <i class="bi bi-box-arrow-up-right text-white text-2xl"></i>
+                    <span class="text-white text-xl font-bold">Registration Form</span>
+                </div>
+            </a>
+
+            <!-- Paper Submission Button -->
+            <a href="https://forms.gle/SVhjAR8moXvPzHz6A" target="_blank" class="group relative overflow-hidden bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 rounded-full px-8 py-5 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                <div class="relative flex items-center justify-center gap-3">
+                    <i class="bi bi-file-earmark-text text-white text-2xl"></i>
+                    <span class="text-white text-xl font-bold">Paper Submission</span>
+                </div>
+            </a>
+
+            <!-- WhatsApp Group Button -->
+            <!-- <a href="#" class="group relative overflow-hidden bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 rounded-full px-8 py-5 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                <div class="relative flex items-center justify-center gap-3">
+                    <i class="bi bi-whatsapp text-white text-2xl"></i>
+                    <span class="text-white text-xl font-bold">WhatsApp Group</span>
+                </div>
+            </a> -->
+
+            <!-- Download Template Tamil -->
+            <a href="VAANI CONFERENCE 25.pdf" target="_blank"  class="group relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 rounded-full px-8 py-5 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 lg:col-span-1">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                <div class="relative flex items-center justify-center gap-3">
+                    <i class="bi bi-file-earmark-arrow-down text-white text-2xl"></i>
+                    <span class="text-white text-lg font-bold">Download Brochure (Tamil)</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute bottom-0 left-0 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div class="absolute top-1/2 left-1/2 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+    </div>
+      </div>
+      </div>
+    
+    </div>
+      <footer class="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white mt-20 overflow-hidden">
+
+    <!-- Main Footer Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+            
+            <!-- About Section -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-3 rounded-xl shadow-lg">
+                        <i class="bi bi-mortarboard-fill text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold">VAANI 2025</h3>
+                        <p class="text-sm text-blue-200">MVIT Conference</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    Shaping the future of Younths with AI IoT
+                </p>
+                <div class="flex items-center gap-2 text-sm text-gray-300">
+                    <i class="bi bi-calendar-event text-blue-400"></i>
+                    <span>12th - 14th November 2025</span>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                    <i class="bi bi-link-45deg text-blue-400"></i>
+                    Quick Links
+                </h3>
+                <ul class="space-y-3">
+                    <li>
+                        <a href="#about" class="text-gray-300 hover:text-blue-400 transition duration-300 flex items-center gap-2 group">
+                            <i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                            About Conference
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tracks" class="text-gray-300 hover:text-blue-400 transition duration-300 flex items-center gap-2 group">
+                            <i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                            Conference Themes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#speakers" class="text-gray-300 hover:text-blue-400 transition duration-300 flex items-center gap-2 group">
+                            <i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                            Resource Persons
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#committee" class="text-gray-300 hover:text-blue-400 transition duration-300 flex items-center gap-2 group">
+                            <i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                            Organizing Committee
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#register-now" class="text-gray-300 hover:text-blue-400 transition duration-300 flex items-center gap-2 group">
+                            <i class="bi bi-chevron-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                            Registration
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                    <i class="bi bi-envelope-fill text-blue-400"></i>
+                    Contact Us
+                </h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <i class="bi bi-geo-alt-fill text-blue-400 mt-1 flex-shrink-0"></i>
+                        <div class="text-sm text-gray-300">
+                            <p class="font-semibold text-white mb-1">MVIT Campus</p>
+                            <p>Kalitheerthalkuppam, Madagadipet</p>
+                            <p>Pondicherry-Villupuram Highway</p>
+                            <p>Puducherry - 605107</p>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="bi bi-envelope-fill text-blue-400"></i>
+                        <a href="mailto:mitcvaani2025@mvit.edu.in" class="text-sm text-gray-300 hover:text-blue-400 transition duration-300">
+                            mitcvaani2025@mvit.edu.in
+                        </a>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="bi bi-telephone-fill text-blue-400"></i>
+                        <div class="text-sm text-gray-300">
+                            <p>9976167499 / 7010813712</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Important Resources -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                    <i class="bi bi-file-earmark-text-fill text-blue-400"></i>
+                    Resources
+                </h3>
+                <div class="space-y-3">
+                    <a href="https://forms.gle/SVhjAR8moXvPzHz6A" target="_blank" class="block group">
+                        <div class="bg-gradient-to-r from-blue-600/20 to-blue-700/20 hover:from-blue-600/30 hover:to-blue-700/30 border border-blue-500/30 rounded-xl p-4 transition duration-300">
+                            <div class="flex items-center gap-3">
+                                <i class="bi bi-box-arrow-up-right text-blue-400 text-xl"></i>
+                                <div>
+                                    <p class="text-sm font-semibold">Registration Form</p>
+                                    <p class="text-xs text-gray-400">Submit your entry</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="PDF_MIT_AICTE_VAANI_Conf Brochure (2).pdf" target="_blank" class="block group">
+                        <div class="bg-gradient-to-r from-orange-600/20 to-orange-700/20 hover:from-orange-600/30 hover:to-orange-700/30 border border-orange-500/30 rounded-xl p-4 transition duration-300">
+                            <div class="flex items-center gap-3">
+                                <i class="bi bi-file-earmark-pdf text-orange-400 text-xl"></i>
+                                <div>
+                                    <p class="text-sm font-semibold">Brochure (Tamil)</p>
+                                    <p class="text-xs text-gray-400">Download PDF</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media & Bottom Bar -->
+        <div class="mt-12 pt-8 border-t border-gray-700">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Social Media Links -->
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-gray-400">Follow Us:</span>
+                    <div class="flex gap-3">
+                        <a href="#" class="group bg-blue-600/20 hover:bg-blue-600 p-3 rounded-full transition duration-300">
+                            <i class="bi bi-facebook text-lg"></i>
+                        </a>
+                        <a href="#" class="group bg-blue-400/20 hover:bg-blue-400 p-3 rounded-full transition duration-300">
+                            <i class="bi bi-twitter-x text-lg"></i>
+                        </a>
+                        <a href="#" class="group bg-pink-600/20 hover:bg-pink-600 p-3 rounded-full transition duration-300">
+                            <i class="bi bi-instagram text-lg"></i>
+                        </a>
+                        <a href="#" class="group bg-blue-700/20 hover:bg-blue-700 p-3 rounded-full transition duration-300">
+                            <i class="bi bi-linkedin text-lg"></i>
+                        </a>
+                        <a href="#" class="group bg-red-600/20 hover:bg-red-600 p-3 rounded-full transition duration-300">
+                            <i class="bi bi-youtube text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Copyright -->
+                <div class="text-center md:text-right">
+                    <p class="text-sm text-gray-400">
+                        © 2025 <span class="font-semibold text-white">MVIT - VAANI Conference</span>. All rights res erved.
+                    </p>
+                    <p class="text-xs text-gray-500 mt-1">
+                        Powered by <a href="https://abipravi.in" class="text-blue-400">abipravi.in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-4 rounded-full shadow-2xl opacity-0 invisible transition-all duration-300 z-50 group">
+        <i class="bi bi-arrow-up text-xl group-hover:translate-y-[-2px] transition-transform"></i>
+    </button>
+</footer>
+    <script>
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const mobileNav = document.getElementById("mobile-nav");
+      const hamburgerIcon = hamburgerBtn.querySelector("i");
+
+      hamburgerBtn.addEventListener("click", () => {
+        const isHidden = mobileNav.classList.contains("hidden");
+
+        if (isHidden) {
+          mobileNav.classList.remove("hidden");
+          mobileNav.classList.add("flex", "flex-col");
+          hamburgerIcon.classList.remove("bi-list");
+          hamburgerIcon.classList.add("bi-x");
+        } else {
+          mobileNav.classList.add("hidden");
+          mobileNav.classList.remove("flex", "flex-col");
+          hamburgerIcon.classList.remove("bi-x");
+          hamburgerIcon.classList.add("bi-list");
+        }
+      });
+
+      // Close mobile menu when clicking on a link
+      const navLinks = mobileNav.querySelectorAll("a");
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth < 768) {
+            mobileNav.classList.add("hidden");
+            mobileNav.classList.remove("flex", "flex-col");
+            hamburgerIcon.classList.remove("bi-x");
+            hamburgerIcon.classList.add("bi-list");
+          }
+        });
+      });
+      const resourcePersons = [
+        {
+          name: "Dr. M. Manikandan",
+          title: "AI & IoT Specialist",
+          image: "resource_persons/1_Manikandan.jpg",
+          institution: "Professor at MIT Campus, Anna University, Chennai",
+          topic: "AIoT",
+          role: "Session II - Chairperson",
+          papers: "25+",
+          awards: "12",
+        },
+        {
+          name: "DR. B. Ezhilavan",
+          title: "CEO & FOUNDER",
+          image: "resource_persons/1_Ezhil.jpg",
+          institution: "VEI Technologies Pvt. Ltd., Chennai",
+          topic: "Data Science, Big Data & Analytics",
+          papers: "20+",
+          awards: "8",
+        },
+        {
+          name: "Dr. A. Ramachandran",
+          title: "Assistant Professor (Sl. Gr)",
+          image: "resource_persons/1_Rams.jpg",
+          institution:
+            "University College of Engineering, Anna University, Panruti",
+          topic: "Future Trends & Emerging Technologies in Internet of Things",
+          papers: "15+",
+          awards: "5",
+        },
+        {
+          name: "Dr. N. Palanivel",
+          title: "Professor",
+          image: "resource_persons/Palanivel.jpg",
+          institution: "MVIT, Puducherry",
+          topic: "AI for Cyber security & Block chain Technology",
+          expertise: "Block chain Technology",
+          papers: "30+",
+          awards: "10",
+        },
+        {
+          name: "Dr. A. Selvakumar",
+          title: "Professor",
+          image: "resource_persons/Selva_photo.jpg",
+          institution: "Saveetha School of Engineering, Chennai",
+          topic: "Internet of Things Applications in Emerging Domains",
+          papers: "20+",
+          awards: "7",
+        },
+        {
+          name: "Dr. S. Velmurugan",
+          title: "Professor",
+          image: "resource_persons/Velmurugan.jpg",
+          institution: "T.J.S. Engineering College, Chennai",
+          topic: "Natural Language Processing (NLP) & Speech Technologies",
+          papers: "18+",
+          awards: "6",
+        },
+        {
+          name: "Dr. N. Poonguzhali",
+          title: "Associate Professor",
+          image: "resource_persons/Poonguzhali.jpeg.jpg",
+          institution:
+            "School of Computer & Systems Sciences, Jawaharla Nehur University, New Delhi",
+          topic: "AI for Block chain Technology",
+          papers: "22+",
+          awards: "9",
+        },
+        {
+          name: "Dr. T. Rajesh",
+          title: "Technical Lead Engineer",
+          image: "resource_persons/Rajesh.jpg",
+          institution: "Innovate Engineering Products, Hosur",
+          topic: "Artificial Intelligence in Smart Environment",
+          papers: "12+",
+          awards: "4",
+        },
+        {
+          name: "Mr. Lokesh Prabakaran",
+          title: "Software Engineer II",
+          image: "resource_persons/Lokesh.png",
+          institution: "Atlassian Corporate Engineering, Chennai",
+          topic: "AI in Healthcare & Bio informatics",
+          papers: "8+",
+          awards: "3",
+        },
+        {
+          name: "Dr. S. Abarna",
+          title: "Assistant Professor",
+          image: "resource_persons/dr_abarna.jpeg",
+          institution: "Rashtriya Raksha University",
+          topic:
+            "Artificial Intelligence in Business Intelligence & Automation",
+          papers: "15+",
+          awards: "5",
+        },
+        {
+          name: "Dr. A. Murugan",
+          title: "Professor",
+          image: "resource_persons/1_Murugan.jpg",
+          institution:
+            "Department of Data Science and Business System, SRM Institute of Science and Technology",
+          topic: "Generative AI and Its Applications",
+          papers: "28+",
+          awards: "11",
+        },
+      ];
+      function createPersonCard(person) {
+        return `
+    <div class="group relative w-full max-w-sm">
+        <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500 rounded-3xl opacity-0 group-hover:opacity-75 blur-xl transition duration-500"></div>
+        
+        <div class="relative bg-white rounded-3xl shadow-xl overflow-hidden transform transition duration-500 group-hover:scale-[1.02] group-hover:shadow-2xl">
+            <div class="relative bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 h-32">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.1),transparent)] opacity-50"></div>
+            </div>
+            
+            <div class="flex justify-center -mt-20 mb-4 px-6">
+                <div class="relative">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500 rounded-full opacity-75 group-hover:opacity-100 blur-md animate-pulse"></div>
+                    <div class="relative bg-white p-2 rounded-full shadow-2xl">
+                        <img src="${person.image}" alt="${person.name}" class="w-32 h-32 rounded-full object-fit ring-4 ring-white transform transition duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="absolute bottom-1 right-1 bg-white rounded-full p-1 shadow-lg">
+                        <i class="bi bi-check-circle-fill text-emerald-500 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="px-6 pb-6">
+                <div class="text-center mb-4">
+                    <h3 class="text-2xl font-bold text-slate-800 leading-tight mb-1">${person.name}</h3>
+                    <p class="text-sm text-slate-500 font-medium">${person.title}</p>
+                </div>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-start gap-2">
+                        <i class="bi bi-building text-blue-500 mt-1 flex-shrink-0"></i>
+                        <p class="text-sm text-slate-600 leading-relaxed">${person.institution}</p>
+                    </div>
+                    <div class="flex items-start gap-2">
+                        <i class="bi bi-journal-text text-purple-500 mt-1 flex-shrink-0"></i>
+                        <p class="text-sm text-slate-600 leading-relaxed"><span class="font-semibold text-slate-700">Topic:</span> ${person.topic}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-emerald-400/20 to-transparent transform -translate-x-12 -translate-y-12 rounded-full blur-2xl group-hover:scale-150 transition duration-700"></div>
+            <div class="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-purple-400/20 to-transparent transform translate-x-16 translate-y-16 rounded-full blur-2xl group-hover:scale-150 transition duration-700"></div>
+        </div>
+    </div>
+  `;
+      }
+      const gridElement = document.getElementById("resource-persons-grid");
+      gridElement.innerHTML = resourcePersons
+        .map((person) => createPersonCard(person))
+        .join("");
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,ta,hi', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+  </body>
+</html>
