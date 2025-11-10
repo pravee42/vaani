@@ -468,6 +468,7 @@
           font-size: 2.5rem;
         }
       }
+      
     </style>
   </head>
   <body>
@@ -488,6 +489,8 @@
           alt="Logo"
           class="w-10 h-10 md:w-16 md:h-16 lg:w-20 lg:h-20"
         />
+        <!-- <div class="mt-5" id="google_translate_element"></div> -->
+
       </div>
       <div class="relative">
         <button
@@ -579,16 +582,16 @@
             >
               Register Now
         </a>
-            <a href="VAANI CONFERENCE 25.pdf" target="_blank"
+            <a href="inv.jpeg" target="_blank"
               class="bg-[#ff914d] text-sm md:text-base lg:text-xl text-white px-3 py-1.5 md:px-4 md:py-2 rounded-xl cursor-pointer hover:bg-white hover:text-[#ff914d] transition-colors button-custom"
             >
               Invitation
       </a>
-            <button
+            <!-- <button
               class="bg-[#ff914d] text-sm md:text-base lg:text-xl text-white px-3 py-1.5 md:px-4 md:py-2 rounded-xl cursor-pointer hover:bg-white hover:text-[#ff914d] transition-colors button-custom"
             >
               Proceedings
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -1032,7 +1035,7 @@
             </a> -->
 
             <!-- Download Template Tamil -->
-            <a href="PDF_MIT_AICTE_VAANI_Conf Brochure (2).pdf" target="_blank"  class="group relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 rounded-full px-8 py-5 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 lg:col-span-1">
+            <a href="VAANI CONFERENCE 25.pdf" target="_blank"  class="group relative overflow-hidden bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 rounded-full px-8 py-5 shadow-xl hover:shadow-2xl transform hover:scale-105 transition duration-300 lg:col-span-1">
                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                 <div class="relative flex items-center justify-center gap-3">
                     <i class="bi bi-file-earmark-arrow-down text-white text-2xl"></i>
@@ -1208,7 +1211,7 @@
                 <!-- Copyright -->
                 <div class="text-center md:text-right">
                     <p class="text-sm text-gray-400">
-                        © 2025 <span class="font-semibold text-white">MVIT - VAANI Conference</span>. All rights reserved.
+                        © 2025 <span class="font-semibold text-white">MVIT - VAANI Conference</span>. All rights res erved.
                     </p>
                     <p class="text-xs text-gray-500 mt-1">
                         Powered by <a href="https://abipravi.in" class="text-blue-400">abipravi.in</a>
@@ -1377,7 +1380,7 @@
                 <div class="relative">
                     <div class="absolute -inset-2 bg-gradient-to-r from-emerald-400 via-blue-500 to-purple-500 rounded-full opacity-75 group-hover:opacity-100 blur-md animate-pulse"></div>
                     <div class="relative bg-white p-2 rounded-full shadow-2xl">
-                        <img src="${person.image}" alt="${person.name}" class="w-32 h-32 rounded-full object-cover ring-4 ring-white transform transition duration-500 group-hover:scale-105">
+                        <img src="${person.image}" alt="${person.name}" class="w-32 h-32 rounded-full object-fit ring-4 ring-white transform transition duration-500 group-hover:scale-105">
                     </div>
                     <div class="absolute bottom-1 right-1 bg-white rounded-full p-1 shadow-lg">
                         <i class="bi bi-check-circle-fill text-emerald-500 text-xl"></i>
@@ -1414,5 +1417,11 @@
         .map((person) => createPersonCard(person))
         .join("");
     </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,ta,hi', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
   </body>
 </html>
